@@ -5,7 +5,7 @@ pipeline {
         stage('Run Maven Tests') {
             steps {
                 sh '''
-                    rm -rf amitsingh-bisht/testng-browserstack
+                    rm -rf testng-browserstack
                     git clone https://github.com/amitsingh-bisht/testng-browserstack
                     cd testng-browserstack
                     M2_HOME="/var/lib/jenkins/workspace/apache-maven-3.6.3/bin"
