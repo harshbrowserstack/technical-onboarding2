@@ -5,7 +5,8 @@ def abc(){
 
 pipeline {
     agent any
-        choice(name: 'BUILD', choices: ['cURL', 'Test Observability'])
+        parameters {
+            choice(name: 'BUILD', choices: ['cURL', 'Test Observability'])
 //              if (params.BUILD == 'cURL') {
 //                 string(name: 'TEST_MANAGEMENT_API_TOKEN', defaultValue: '943d7c85-9497-4ba1-88ac-af7642828a42', description: 'API Token of your Test Management Account - You can find here: https://test-management.browserstack.com/settings')
 //                 string(name: 'TEST_MANAGEMENT_PROJECT_NAME', defaultValue: 'XYZ Banking Corporation', description: 'Project Name where you want to upload test results, NOTE: If any new project name is defined, Test Management will create a project for you')
@@ -14,6 +15,7 @@ pipeline {
 //              } else {
 //                 string(name: 'TO', defaultValue: 'test.management23@gmail.com', description: 'User Email')
 //              }
+        }
     stages {
         stage('Run Maven Tests') {
             steps {
