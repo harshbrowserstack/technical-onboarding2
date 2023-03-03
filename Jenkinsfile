@@ -26,7 +26,7 @@ pipeline {
 
                     curl -k -X POST https://test-management.browserstack.com/api/v1/import/results/xml/junit \
                     -H "API-TOKEN:$TEST_MANAGEMENT_API_TOKEN" \
-                    -F project_name=$TEST_MANAGEMENT_PROJECT_NAME \
+                    -F project_name="$TEST_MANAGEMENT_PROJECT_NAME" \
                     -F "file_path=@$JUNIT_XML_FILE_PATH" \
                     -F test_run_name="$TEST_RUN_NAME" \
                     -F user_email=$USER_EMAIL
