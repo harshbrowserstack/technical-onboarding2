@@ -20,7 +20,7 @@ pipeline {
                 sh '''
                     export TEST_MANAGEMENT_API_TOKEN="943d7c85-9497-4ba1-88ac-af7642828a42"
                     export TEST_MANAGEMENT_PROJECT_NAME="XYZ Banking Corporation"
-                    export JUNIT_XML_FILE_PATH="/var/lib/jenkins/workspace/$JOB_BASE_NAME/testng-browserstack/target/surefire-reports/junitreports/TEST-com.browserstack.BStackDemoTest.xml"
+                    export JUNIT_XML_FILE_PATH="/var/lib/jenkins/workspace/TestNG-Pipeline_master/testng-browserstack/target/surefire-reports/junitreports/TEST-com.browserstack.BStackDemoTest.xml"
                     export TEST_RUN_NAME="Test Run - TestNG cURL - $BUILD_NUMBER"
                     export USER_EMAIL="test.management23@gmail.com"
 
