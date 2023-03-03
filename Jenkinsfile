@@ -40,9 +40,4 @@ pipeline {
             }
         }
     }
-    post {
-        always {
-            junit '/var/lib/jenkins/workspace/TestNG-Pipeline_master/testng-browserstack/target/surefire-reports/junitreports/TEST-com.browserstack.BStackDemoTest.xml'
-        }
-    }
 }
