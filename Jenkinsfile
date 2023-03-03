@@ -1,19 +1,19 @@
 /* Requires the Docker Pipeline plugin */
 def params = []
 
-if (true) {
-    parameters {
-        choice(name: 'BUILD', choices: ['cURL', 'Test Observability'])
-    }
-    if (params.BUILD == 'cURL') {
-        parameters {
-            string(name: 'TEST_MANAGEMENT_API_TOKEN', defaultValue: '943d7c85-9497-4ba1-88ac-af7642828a42', description: 'API Token of your Test Management Account - You can find here: https://test-management.browserstack.com/settings', when: { expression { params.BUILD == 'cURL' } })
-            string(name: 'TEST_MANAGEMENT_PROJECT_NAME', defaultValue: 'XYZ Banking Corporation', description: 'Project Name where you want to upload test results, NOTE: If any new project name is defined, Test Management will create a project for you')
-            string(name: 'TEST_RUN_NAME', defaultValue: 'Test Run - TestNG cURL - $BUILD_NUMBER', description: 'Name of your Test Run')
-            string(name: 'USER_EMAIL', defaultValue: 'test.management23@gmail.com', description: 'User Email')
-        }
-    }
-}
+// if (true) {
+//     parameters {
+//         choice(name: 'BUILD', choices: ['cURL', 'Test Observability'])
+//     }
+//     if (params.BUILD == 'cURL') {
+//         parameters {
+//             string(name: 'TEST_MANAGEMENT_API_TOKEN', defaultValue: '943d7c85-9497-4ba1-88ac-af7642828a42', description: 'API Token of your Test Management Account - You can find here: https://test-management.browserstack.com/settings', when: { expression { params.BUILD == 'cURL' } })
+//             string(name: 'TEST_MANAGEMENT_PROJECT_NAME', defaultValue: 'XYZ Banking Corporation', description: 'Project Name where you want to upload test results, NOTE: If any new project name is defined, Test Management will create a project for you')
+//             string(name: 'TEST_RUN_NAME', defaultValue: 'Test Run - TestNG cURL - $BUILD_NUMBER', description: 'Name of your Test Run')
+//             string(name: 'USER_EMAIL', defaultValue: 'test.management23@gmail.com', description: 'User Email')
+//         }
+//     }
+// }
 
 pipeline {
     agent any
@@ -21,23 +21,23 @@ pipeline {
 //             choice(name: 'BUILD', choices: ['cURL', 'Test Observability'])
 //             string(name: 'TEST_MANAGEMENT_API_TOKEN', defaultValue: '943d7c85-9497-4ba1-88ac-af7642828a42', description: 'API Token of your Test Management Account - You can find here: https://test-management.browserstack.com/settings', when: { expression { params.BUILD == 'cURL' } })
             choice(
-                        name: 'DEPLOY_TYPE',
-                        choices: ['Simple', 'Advanced'],
-                        description: 'Select the type of deployment'
-                    )
-                    choice(
-                        name: 'ADVANCED_OPTION',
-                        choices: [
-                            'Option 1\nParam1=Value1\nParam2=Value2',
-                            'Option 2\nParam3=Value3\nParam4=Value4'
-                        ],
-                        description: 'Select an advanced deployment option',
-                        when: {
-                            expression {
-                                params.DEPLOY_TYPE == 'Advanced'
-                            }
-                        }
-                    )
+                name: 'DEPLOY_TYPE',
+                choices: ['Simple', 'Advanced'],
+                description: 'Select the type of deployment'
+            )
+            choice(
+                name: 'ADVANCED_OPTION',
+                choices: [
+                    'Option 1\nParam1=Value1\nParam2=Value2',
+                    'Option 2\nParam3=Value3\nParam4=Value4'
+                ],
+                description: 'Select an advanced deployment option',
+                when: {
+                    expression {
+                        params.DEPLOY_TYPE == 'Advanced'
+                    }
+                }
+            )
         }
     stages {
         stage('Run Maven Tests') {
