@@ -5,14 +5,8 @@ def abc(){
 
 pipeline {
     agent any
-        stringParam {
-          name('PRIORITY')
-          defaultValue('todo')
-          description('Set the priority for which the tests needed to run. Default is P1')
-          trim(true)
-        }
         choice(name: 'BUILD', choices: ['cURL', 'Test Observability'])
-//              if (params.booleanExample == 'cURL') {
+//              if (params.BUILD == 'cURL') {
 //                 string(name: 'TEST_MANAGEMENT_API_TOKEN', defaultValue: '943d7c85-9497-4ba1-88ac-af7642828a42', description: 'API Token of your Test Management Account - You can find here: https://test-management.browserstack.com/settings')
 //                 string(name: 'TEST_MANAGEMENT_PROJECT_NAME', defaultValue: 'XYZ Banking Corporation', description: 'Project Name where you want to upload test results, NOTE: If any new project name is defined, Test Management will create a project for you')
 //                 string(name: 'TEST_RUN_NAME', defaultValue: 'Test Run - TestNG cURL - $BUILD_NUMBER', description: 'Name of your Test Run')
