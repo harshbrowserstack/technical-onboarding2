@@ -16,7 +16,7 @@ pipeline {
                     'Option 2\nParam3=Value3\nParam4=Value4'
                 ],
                 description: 'Select an advanced deployment option',
-                when {
+                when: {
                     expression {
                         params.DEPLOY_TYPE == 'Advanced'
                     }
