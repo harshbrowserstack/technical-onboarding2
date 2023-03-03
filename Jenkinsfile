@@ -5,6 +5,8 @@ pipeline {
         stage('build') {
             steps {
                 sh '''
+                    rm -rf amitsingh-bisht/testng-browserstack
+                    git clone https://github.com/amitsingh-bisht/testng-browserstack
                     pwd
                     ls
                     cd testng-browserstack
