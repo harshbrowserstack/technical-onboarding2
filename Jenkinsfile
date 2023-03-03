@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                sh '
+                sh '''
                     pwd
                     ls
                     cd testng-browserstack
@@ -15,7 +15,7 @@ pipeline {
 
                     mvn clean
                     mvn test
-                '
+                '''
             }
         }
     }
