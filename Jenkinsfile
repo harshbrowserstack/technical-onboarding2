@@ -18,8 +18,26 @@ if (true) {
 pipeline {
     agent any
         parameters {
-            choice(name: 'BUILD', choices: ['cURL', 'Test Observability'])
-            string(name: 'TEST_MANAGEMENT_API_TOKEN', defaultValue: '943d7c85-9497-4ba1-88ac-af7642828a42', description: 'API Token of your Test Management Account - You can find here: https://test-management.browserstack.com/settings', when: { expression { params.BUILD == 'cURL' } })
+//             choice(name: 'BUILD', choices: ['cURL', 'Test Observability'])
+//             string(name: 'TEST_MANAGEMENT_API_TOKEN', defaultValue: '943d7c85-9497-4ba1-88ac-af7642828a42', description: 'API Token of your Test Management Account - You can find here: https://test-management.browserstack.com/settings', when: { expression { params.BUILD == 'cURL' } })
+            choice(
+                        name: 'DEPLOY_TYPE',
+                        choices: ['Simple', 'Advanced'],
+                        description: 'Select the type of deployment'
+                    )
+                    choice(
+                        name: 'ADVANCED_OPTION',
+                        choices: [
+                            'Option 1\nParam1=Value1\nParam2=Value2',
+                            'Option 2\nParam3=Value3\nParam4=Value4'
+                        ],
+                        description: 'Select an advanced deployment option',
+                        when: {
+                            expression {
+                                params.DEPLOY_TYPE == 'Advanced'
+                            }
+                        }
+                    )
         }
     stages {
         stage('Run Maven Tests') {
