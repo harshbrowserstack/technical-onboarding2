@@ -1,20 +1,26 @@
 /* Requires the Docker Pipeline plugin */
-def abc(){
+def params = []
 
+if (someCondition) {
+  params << string(name: 'TEST_MANAGEMENT_API_TOKEN', defaultValue: '943d7c85-9497-4ba1-88ac-af7642828a42', description: 'API Token of your Test Management Account - You can find here: https://test-management.browserstack.com/settings')
+  params << string(name: 'TEST_MANAGEMENT_PROJECT_NAME', defaultValue: 'XYZ Banking Corporation', description: 'Project Name where you want to upload test results, NOTE: If any new project name is defined, Test Management will create a project for you')
+  params << string(name: 'TEST_RUN_NAME', defaultValue: 'Test Run - TestNG cURL - $BUILD_NUMBER', description: 'Name of your Test Run')
+  params << string(name: 'USER_EMAIL', defaultValue: 'test.management23@gmail.com', description: 'User Email')
 }
 
 pipeline {
     agent any
+//         parameters(params)
         parameters {
             choice(name: 'BUILD', choices: ['cURL', 'Test Observability'])
-//              if (params.BUILD == 'cURL') {
-//                 string(name: 'TEST_MANAGEMENT_API_TOKEN', defaultValue: '943d7c85-9497-4ba1-88ac-af7642828a42', description: 'API Token of your Test Management Account - You can find here: https://test-management.browserstack.com/settings')
-//                 string(name: 'TEST_MANAGEMENT_PROJECT_NAME', defaultValue: 'XYZ Banking Corporation', description: 'Project Name where you want to upload test results, NOTE: If any new project name is defined, Test Management will create a project for you')
-//                 string(name: 'TEST_RUN_NAME', defaultValue: 'Test Run - TestNG cURL - $BUILD_NUMBER', description: 'Name of your Test Run')
-//                 string(name: 'USER_EMAIL', defaultValue: 'test.management23@gmail.com', description: 'User Email')
-//              } else {
-//                 string(name: 'TO', defaultValue: 'test.management23@gmail.com', description: 'User Email')
-//              }
+            if (params.BUILD == 'cURL') {
+                string(name: 'TEST_MANAGEMENT_API_TOKEN', defaultValue: '943d7c85-9497-4ba1-88ac-af7642828a42', description: 'API Token of your Test Management Account - You can find here: https://test-management.browserstack.com/settings')
+                string(name: 'TEST_MANAGEMENT_PROJECT_NAME', defaultValue: 'XYZ Banking Corporation', description: 'Project Name where you want to upload test results, NOTE: If any new project name is defined, Test Management will create a project for you')
+                string(name: 'TEST_RUN_NAME', defaultValue: 'Test Run - TestNG cURL - $BUILD_NUMBER', description: 'Name of your Test Run')
+                string(name: 'USER_EMAIL', defaultValue: 'test.management23@gmail.com', description: 'User Email')
+            } else {
+                string(name: 'TO', defaultValue: 'test.management23@gmail.com', description: 'User Email')
+            }
         }
     stages {
         stage('Run Maven Tests') {
