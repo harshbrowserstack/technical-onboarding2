@@ -24,11 +24,7 @@ pipeline {
         stage('Upload Result to Test Management') {
             steps {
                 sh '''
-                    export TEST_MANAGEMENT_API_TOKEN="943d7c85-9497-4ba1-88ac-af7642828a42"
-                    export TEST_MANAGEMENT_PROJECT_NAME="XYZ Banking Corporation"
                     export JUNIT_XML_FILE_PATH="/var/lib/jenkins/workspace/TestNG-Pipeline_master/testng-browserstack/target/surefire-reports/junitreports/TEST-com.browserstack.BStackDemoTest.xml"
-                    export TEST_RUN_NAME="Test Run - TestNG cURL - $BUILD_NUMBER"
-                    export USER_EMAIL="test.management23@gmail.com"
 
                     curl -k -X POST https://test-management.browserstack.com/api/v1/import/results/xml/junit \
                     -H "API-TOKEN:$TEST_MANAGEMENT_API_TOKEN" \
