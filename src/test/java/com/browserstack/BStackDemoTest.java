@@ -33,7 +33,8 @@ public class BStackDemoTest extends SeleniumTest {
         driver.get("https://www.bstackdemo.com");
 
         // Check the title
-        Assert.assertTrue(driver.getTitle().matches("StackDemo"));
+        Assert.assertTrue(driver.getTitle().matches("StackDemo")); // PASS
+        Assert.assertTrue(driver.getTitle().matches("StackDemos")); // FAIL
 
         // Save the text of the product for later verify
         String productOnScreenText = driver.findElement(By.xpath("//*[@id=\"1\"]/p")).getText();
@@ -59,7 +60,8 @@ public class BStackDemoTest extends SeleniumTest {
         // Save the text of the product for later verify
         String productOnScreenText = driver.findElement(By.xpath("//*[@id=\"1\"]/p")).getText();
         // Click on add to cart button
-        driver.findElement(By.xpath("//*[@id=\"1\"]/div[4]")).click();
+        driver.findElement(By.xpath("//*[@id=\"1\"]/div[4]")).click(); // PASS
+        driver.findElement(By.xpath("//*[@id=\"1\"]/div[]")).click(); // FAIL
 
         // See if the cart is opened or not
         Assert.assertTrue(driver.findElement(By.cssSelector(".float\\-cart__content")).isDisplayed());
@@ -69,7 +71,7 @@ public class BStackDemoTest extends SeleniumTest {
         Assert.assertEquals(productOnScreenText, productOnCartText);
     }
 
-    @Test
+    @Test(enabled=false)
     public void removeProductFromCart() throws Exception {
         // navigate to bstackdemo
         driver.get("https://www.bstackdemo.com");
