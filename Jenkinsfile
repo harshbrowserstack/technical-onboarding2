@@ -5,7 +5,6 @@ def abc(){
 
 pipeline {
     agent any
-    properties {
         stringParam {
           name('PRIORITY')
           defaultValue('todo')
@@ -21,7 +20,6 @@ pipeline {
 //              } else {
 //                 string(name: 'TO', defaultValue: 'test.management23@gmail.com', description: 'User Email')
 //              }
-    }
     stages {
         stage('Run Maven Tests') {
             steps {
