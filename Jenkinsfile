@@ -1,7 +1,7 @@
 /* Requires the Docker Pipeline plugin */
 def params = []
 
-if (someCondition) {
+if (params.BUILD == 'cURL') {
   params << string(name: 'TEST_MANAGEMENT_API_TOKEN', defaultValue: '943d7c85-9497-4ba1-88ac-af7642828a42', description: 'API Token of your Test Management Account - You can find here: https://test-management.browserstack.com/settings')
   params << string(name: 'TEST_MANAGEMENT_PROJECT_NAME', defaultValue: 'XYZ Banking Corporation', description: 'Project Name where you want to upload test results, NOTE: If any new project name is defined, Test Management will create a project for you')
   params << string(name: 'TEST_RUN_NAME', defaultValue: 'Test Run - TestNG cURL - $BUILD_NUMBER', description: 'Name of your Test Run')
@@ -13,16 +13,31 @@ pipeline {
 //         parameters(params)
         parameters {
             choice(name: 'BUILD', choices: ['cURL', 'Test Observability'])
-            if (params.BUILD == 'cURL') {
-                string(name: 'TEST_MANAGEMENT_API_TOKEN', defaultValue: '943d7c85-9497-4ba1-88ac-af7642828a42', description: 'API Token of your Test Management Account - You can find here: https://test-management.browserstack.com/settings')
-                string(name: 'TEST_MANAGEMENT_PROJECT_NAME', defaultValue: 'XYZ Banking Corporation', description: 'Project Name where you want to upload test results, NOTE: If any new project name is defined, Test Management will create a project for you')
-                string(name: 'TEST_RUN_NAME', defaultValue: 'Test Run - TestNG cURL - $BUILD_NUMBER', description: 'Name of your Test Run')
-                string(name: 'USER_EMAIL', defaultValue: 'test.management23@gmail.com', description: 'User Email')
-            } else {
-                string(name: 'TO', defaultValue: 'test.management23@gmail.com', description: 'User Email')
-            }
         }
     stages {
+        stage('Build') {
+            steps {
+                script {
+                    // Get the user input
+                    def userInput = input message: 'What type of build do you want to do?',
+                       parameters: [
+                           choice(name: 'BUILD_TYPE', choices: ['Debug', 'Release'], description: 'Build type')
+                       ]
+                    // Show different parameters based on the user input
+                    if (userInput.BUILD_TYPE == 'Debug') {
+                        input message: 'Specify the debug level',
+                            parameters: [
+                              string(name: 'DEBUG_LEVEL', defaultValue: '1', description: 'Debug level')
+                            ]
+                    } else if (userInput.BUILD_TYPE == 'Release') {
+                        input message: 'Specify the release type',
+                              parameters: [
+                                  choice(name: 'RELEASE_TYPE', choices: ['Alpha', 'Beta', 'Production'], description: 'Release type')
+                              ]
+                    }
+                }
+            }
+        }
         stage('Run Maven Tests') {
             steps {
                 catchError {
