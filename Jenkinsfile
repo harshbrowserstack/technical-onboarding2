@@ -23,7 +23,7 @@ pipeline {
                 }
             }
         }
-        stage('Upload Result to Test Management') {
+        stage('Upload Reports in Test Management') {
             steps {
                 sh '''
                     export JUNIT_XML_FILE_PATH="/var/lib/jenkins/workspace/TestNG-Pipeline_master/testng-browserstack/target/surefire-reports/junitreports/TEST-com.browserstack.BStackDemoTest.xml"
