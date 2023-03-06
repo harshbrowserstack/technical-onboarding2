@@ -28,7 +28,7 @@ pipeline {
         stage('Upload Reports in Test Management') {
             steps {
                 sh '''
-                    export JUNIT_XML_FILE_PATH="$(pwd)/target/surefire-reports/junitreports/TEST-com.browserstack.BStackDemoTest.xml"
+                    export JUNIT_XML_FILE_PATH="$(pwd)/testng-browserstack/target/surefire-reports/junitreports/TEST-com.browserstack.BStackDemoTest.xml"
 
                     curl -k -X POST https://test-management.browserstack.com/api/v1/import/results/xml/junit \
                     -H "API-TOKEN:$TEST_MANAGEMENT_API_TOKEN" \
