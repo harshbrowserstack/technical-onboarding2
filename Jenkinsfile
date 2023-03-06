@@ -14,9 +14,9 @@ pipeline {
             steps {
                 catchError {
                     sh '''
-                        rm -rf testng-browserstack # name of your github repository
-                        git clone https://github.com/amitsingh-bisht/testng-browserstack # clone your github repository
-                        cd testng-browserstack # cd to your repo
+                        rm -rf testng-curl # name of your github repository
+                        git clone https://github.com/browserstack-test-mgmt/testng-curl # clone your github repository
+                        cd testng-curl # cd to your repo
                         M2_HOME="/var/lib/jenkins/workspace/apache-maven-3.6.3/bin" # path to your maven
                         export PATH="$M2_HOME:$PATH" # set maven path if it does not exists
                         mvn clean # clean your maven project
@@ -28,7 +28,7 @@ pipeline {
         stage('Upload Reports in Test Management') {
             steps {
                 sh '''
-                    export JUNIT_XML_FILE_PATH="$(pwd)/testng-browserstack/target/surefire-reports/junitreports/TEST-com.browserstack.BStackDemoTest.xml"
+                    export JUNIT_XML_FILE_PATH="$(pwd)/testng-curl/target/surefire-reports/junitreports/TEST-com.browserstack.BStackDemoTest.xml"
 
                     curl -k -X POST https://test-management.browserstack.com/api/v1/import/results/xml/junit \
                     -H "API-TOKEN:$TEST_MANAGEMENT_API_TOKEN" \
