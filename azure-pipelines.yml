@@ -42,7 +42,7 @@ steps:
   continueOnError: true
 
 - bash: |
-    ls '**/TEST-*.xml'
+    ls '**'
     curl https://test-management.browserstack.com/api/v1/import/results/xml/junit
   env:
     TEST_MANAGEMENT_API_TOKEN: '$(TEST_MANAGEMENT_API_TOKEN)'
