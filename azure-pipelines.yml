@@ -38,13 +38,15 @@ steps:
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
   continueOnError: true
+  env:
+    BROWSERSTACK_ACCESS_KEY: '$(BROWSERSTACK_ACCESS_KEY)'
+    BROWSERSTACK_USERNAME: '$(BROWSERSTACK_USERNAME)'
 
 - bash: |
-    curl -k -X POST https://test-management.browserstack.com/api/v1/import/results/xml/junit -H "API-TOKEN:$(TEST_MANAGEMENT_API_TOKEN)" -F project_name="XYZ Banking Corporation" -F "file_path=@target/surefire-reports/junitreports/TEST-com.browserstack.BStackDemoTest.xml" -F test_run_name='$(BUILD_NAME)' -F user_email='$(EMAIL)'
+    curl -k -X POST https://test-management.browserstack.com/api/v1/import/results/xml/junit -H "API-TOKEN:$(TEST_MANAGEMENT_API_TOKEN)" -F project_name="XYZ Banking Corporation" -F "file_path=@target/surefire-reports/junitreports/TEST-com.browserstack.BStackDemoTest.xml" -F test_run_name='Test Run - $(Build.BuildNumber)' -F user_email='$(EMAIL)'
   env:
     TEST_MANAGEMENT_API_TOKEN: '$(TEST_MANAGEMENT_API_TOKEN)'
     BROWSERSTACK_ACCESS_KEY: '$(BROWSERSTACK_ACCESS_KEY)'
     BROWSERSTACK_USERNAME: '$(BROWSERSTACK_USERNAME)'
     EMAIL: '$(EMAIL)'
-    BUILD_NAME: 'Test Run - $(Build.BuildNumber)'
   displayName: 'Publish to Test management'
