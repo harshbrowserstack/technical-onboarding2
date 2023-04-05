@@ -21,7 +21,9 @@ steps:
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
 
-- bash: |
-    ls '**/surefire-reports/TEST-*.xml'
-    
+- bash:
+    echo $(TEST_MANAGEMENT_API_TOKEN)
+    curl -k -X POST https://test-management.browserstack.com/api/v1/import/results/xml/junit
+  env:
+    TEST_MANAGEMENT_API_TOKEN: '$(TEST_MANAGEMENT_API_TOKEN)'
   displayName: 'Publish to Test management'
