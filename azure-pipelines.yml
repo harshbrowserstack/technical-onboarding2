@@ -27,8 +27,6 @@ steps:
 - bash: az --version
   displayName: 'Show Azure CLI version'
 
-- script: mvn install -B -e
-
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
