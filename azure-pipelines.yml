@@ -24,4 +24,4 @@ steps:
 - script: |
     ls '**/surefire-reports/TEST-*.xml'
     
-displayName: 'Publish to Test management'
+  displayName: 'Publish to Test management'
