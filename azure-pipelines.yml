@@ -40,9 +40,8 @@ steps:
   continueOnError: true
 
 - bash: |
-    ls target/surefire-reports/junitreports
-    curl -k -X POST https://test-management.browserstack.com/api/v1/import/results/xml/junit -H "API-TOKEN:$(TEST_MANAGEMENT_API_TOKEN)" -F project_name="XYZ Banking Corporation" -F "file_path=@target/surefire-reports/junitreports/TEST-com.browserstack.BStackDemoTest.xml" -F test_run_name="$(BUILD_NAME)" -F user_email="test.management23@gmail.com"
+    curl -k -X POST https://test-management.browserstack.com/api/v1/import/results/xml/junit -H "API-TOKEN:$(TEST_MANAGEMENT_API_TOKEN)" -F project_name="XYZ Banking Corporation" -F "file_path=@target/surefire-reports/junitreports/TEST-com.browserstack.BStackDemoTest.xml" -F test_run_name='$(Build.SourceVersion)' -F user_email='$(EMAIL)'
   env:
     TEST_MANAGEMENT_API_TOKEN: '$(TEST_MANAGEMENT_API_TOKEN)'
-    BUILD_NAME: 'Test Run $(Build.SourceVersion)'
+    EMAIL: '$(EMAIL)'
   displayName: 'Publish to Test management'
