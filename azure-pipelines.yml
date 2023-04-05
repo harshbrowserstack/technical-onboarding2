@@ -21,7 +21,7 @@ steps:
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
 
-- script: |
+- bash: |
     ls '**/surefire-reports/TEST-*.xml'
     
   displayName: 'Publish to Test management'
