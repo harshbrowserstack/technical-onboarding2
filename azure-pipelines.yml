@@ -20,3 +20,8 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
+
+- script: |
+  - script: |
+	ls '**/surefire-reports/TEST-*.xml'
+  displayName: 'Publish to Test management'
