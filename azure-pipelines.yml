@@ -22,6 +22,6 @@ steps:
     goals: 'package'
 
 - script: |
-  - script: |
-	ls '**/surefire-reports/TEST-*.xml'
-  displayName: 'Publish to Test management'
+    ls '**/surefire-reports/TEST-*.xml'
+    
+displayName: 'Publish to Test management'
