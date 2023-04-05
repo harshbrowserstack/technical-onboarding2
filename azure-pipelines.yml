@@ -21,12 +21,12 @@ steps:
     jdkVersionOption: '1.8'
     jdkArchitectureOption: 'x64'
     publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    testResultsFiles: '**/TEST-*.xml'
     goals: 'package'
   continueOnError: true
 
 - bash: |
-    ls '**/surefire-reports/TEST-*.xml'
+    ls '**/TEST-*.xml'
     curl https://test-management.browserstack.com/api/v1/import/results/xml/junit
   env:
     TEST_MANAGEMENT_API_TOKEN: '$(TEST_MANAGEMENT_API_TOKEN)'
