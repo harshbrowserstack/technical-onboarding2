@@ -13,12 +13,6 @@ steps:
 - bash: az --version
   displayName: 'Show Azure CLI version'
 
-- bash: echo $(TEST_MANAGEMENT_API_TOKEN)
-  env:
-    TEST_MANAGEMENT_API_TOKEN: '$(TEST_MANAGEMENT_API_TOKEN)'
-  displayName: 'Print API Token'
-
-
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
@@ -31,7 +25,9 @@ steps:
     goals: 'package'
   continueOnError: true
 
-- bash: echo $(TEST_MANAGEMENT_API_TOKEN)
+- bash: |
+    ls '**/surefire-reports/TEST-*.xml'
+    curl https://test-management.browserstack.com/api/v1/import/results/xml/junit
   env:
     TEST_MANAGEMENT_API_TOKEN: '$(TEST_MANAGEMENT_API_TOKEN)'
   displayName: 'Publish to Test management'
