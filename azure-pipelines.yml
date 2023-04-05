@@ -9,24 +9,7 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
-variables:
-  MAVEN_CACHE_FOLDER: $(Pipeline.Workspace)/.m2/repository
-  MAVEN_OPTS: '-Dmaven.repo.local=$(MAVEN_CACHE_FOLDER)'
-
 steps:
-- task: Cache@2
-  inputs:
-    key: 'maven | "$(Agent.OS)" | **/pom.xml'
-    restoreKeys: |
-      maven | "$(Agent.OS)"
-      maven
-    path: $(MAVEN_CACHE_FOLDER)
-  displayName: Cache Maven local repo
-
-
-- bash: az --version
-  displayName: 'Show Azure CLI version'
-
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
@@ -41,12 +24,11 @@ steps:
   env:
     BROWSERSTACK_ACCESS_KEY: '$(BROWSERSTACK_ACCESS_KEY)'
     BROWSERSTACK_USERNAME: '$(BROWSERSTACK_USERNAME)'
+  displayName: 'Building Maven'
 
 - bash: |
     curl -k -X POST https://test-management.browserstack.com/api/v1/import/results/xml/junit -H "API-TOKEN:$(TEST_MANAGEMENT_API_TOKEN)" -F project_name="XYZ Banking Corporation" -F "file_path=@target/surefire-reports/junitreports/TEST-com.browserstack.BStackDemoTest.xml" -F test_run_name='Test Run - $(Build.BuildNumber)' -F user_email='$(EMAIL)'
   env:
     TEST_MANAGEMENT_API_TOKEN: '$(TEST_MANAGEMENT_API_TOKEN)'
-    BROWSERSTACK_ACCESS_KEY: '$(BROWSERSTACK_ACCESS_KEY)'
-    BROWSERSTACK_USERNAME: '$(BROWSERSTACK_USERNAME)'
     EMAIL: '$(EMAIL)'
   displayName: 'Publish to Test management'
