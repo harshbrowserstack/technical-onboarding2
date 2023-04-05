@@ -27,8 +27,9 @@ steps:
   displayName: 'Building Maven'
 
 - bash: |
-    curl -k -X POST https://test-management.browserstack.com/api/v1/import/results/xml/junit -H "API-TOKEN:$(TEST_MANAGEMENT_API_TOKEN)" -F project_name="XYZ Banking Corporation" -F "file_path=@target/surefire-reports/junitreports/TEST-com.browserstack.BStackDemoTest.xml" -F test_run_name='Test Run - $(Build.BuildNumber)' -F user_email='$(EMAIL)'
+    curl -k -X POST https://test-management.browserstack.com/api/v1/import/results/xml/junit -H "API-TOKEN:$(TEST_MANAGEMENT_API_TOKEN)" -F project_name='$(PROJECT_NAME)' -F "file_path=@target/surefire-reports/junitreports/TEST-com.browserstack.BStackDemoTest.xml" -F test_run_name='Test Run - $(Build.BuildNumber)' -F user_email='$(EMAIL)'
   env:
     TEST_MANAGEMENT_API_TOKEN: '$(TEST_MANAGEMENT_API_TOKEN)'
     EMAIL: '$(EMAIL)'
+    PROJECT_NAME: '$(PROJECT_NAME)'
   displayName: 'Publish to Test management'
