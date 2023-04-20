@@ -4,7 +4,7 @@ def params = []
 pipeline {
     agent any
         parameters {
-            password(name: 'TEST_MANAGEMENT_API_TOKEN', defaultValue: 'xxxxxx-xxxx-xxx-xxxx-xxxxxxxxxx', description: 'API Token of your Test Management Account - You can find here: https://test-management.browserstack.com/settings')
+            password(name: 'TEST_MANAGEMENT_API_TOKEN', description: 'API Token of your Test Management Account - You can find here: https://test-management.browserstack.com/settings')
             string(name: 'TEST_MANAGEMENT_PROJECT_NAME', defaultValue: 'XYZ Banking Corporation', description: 'Project Name where you want to upload test results, NOTE: If any new project name is defined, Test Management will create a project for you')
             string(name: 'TEST_RUN_NAME', defaultValue: 'Test Run - TestNG cURL - $BUILD_NUMBER', description: 'Name of your Test Run')
             string(name: 'USER_EMAIL', defaultValue: 'test.management23@gmail.com', description: 'User Email')
@@ -15,7 +15,7 @@ pipeline {
                 catchError {
                     sh '''
                         rm -rf testng-curl # name of your github repository
-                        git clone https://github.com/browserstack-test-mgmt/testng-curl # clone your github repository
+                        git clone https://github.com/harshbrowserstack/testng-to-tm # clone your github repository
                         cd testng-curl # cd to your repo
                         M2_HOME="/var/lib/jenkins/workspace/apache-maven-3.6.3/bin" # path to your maven
                         export PATH="$M2_HOME:$PATH" # set maven path if it does not exists
