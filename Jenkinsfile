@@ -15,7 +15,7 @@ pipeline {
                 catchError {
                     sh '''
                         rm -rf testng-curl # name of your github repository
-                        git clone https://github.com/harshbrowserstack/testng-to-tm # clone your github repository
+                        git clone https://github.com/harshbrowserstack/testng-curl # clone your github repository
                         cd testng-curl # cd to your repo
                         M2_HOME="/var/lib/jenkins/workspace/apache-maven-3.6.3/bin" # path to your maven
                         export PATH="$M2_HOME:$PATH" # set maven path if it does not exists
