@@ -1,185 +1,75 @@
 package com.browserstack;
 
 import org.openqa.selenium.By;
-import org.testng.Assert;
-import org.testng.Reporter;
 import org.testng.annotations.Test;
 
 public class BStackDemoTest extends SeleniumTest {
-    @Test
-    public void visitBStackDemo() throws Exception {
+
+    static String username = "agarwal.harshnu@gmail.com";
+	static String password = "Harsh@1202";
+	
+    @Test(priority=1)
+    public void validBSLogin() {
+    	driver.get("https://www.browserstack.com/users/sign_in");
     	
+//        driver.findElement(By.xpath("//*[@id=\"accept-cookie-notification\"]")).click();
+//        driver.findElement(By.xpath("//*[@id=\"primary-menu\"]/li[5]/a")).click();
+        driver.findElement(By.id("user_email_login")).sendKeys(username);
+        driver.findElement(By.id("user_password")).sendKeys(password);
+        driver.findElement(By.id("user_submit")).click();
 
-        // navigate to bstackdemo
-        driver.get("https://www.bstackdemo.com");
-
-        
-        // Hi
-        // Check the title
-        Assert.assertTrue(driver.getTitle().matches("StackDemo"));
-
-        // Save the text of the product for later verify
-        String productOnScreenText = driver.findElement(By.xpath("//*[@id=\"1\"]/p")).getText();
-        // Click on add to cart button
-        driver.findElement(By.xpath("//*[@id=\"1\"]/div[4]")).click();
-
-        // See if the cart is opened or not
-        Assert.assertTrue(driver.findElement(By.cssSelector(".float\\-cart__content")).isDisplayed());
-
-        // Check the product inside the cart is same as of the main page
-        String productOnCartText = driver.findElement(By.xpath("//*[@id=\"__next\"]/div/div/div[2]/div[2]/div[2]/div/div[3]/p[1]")).getText();
-        Assert.assertEquals(productOnScreenText, productOnCartText);
     }
+    
 
-    @Test
-    public void loginToBStackDemo() throws Exception {
+    
+    
+    @Test(priority=2)
+    public void validOpenLiveDashboard() {
+    	driver.get("https://live.browserstack.com/dashboard");
     	
-    	Reporter.log("[[PROPERTY|id=TC-1743]]\n", true);
+        String expectedTitle = "Dashboard";
+        String actualTitle = driver.getTitle();
+        System.out.println("Title: " + actualTitle);
+        assert actualTitle.equals(expectedTitle);
+    }
+    
+    @Test(priority=3)
+    public void validOpenBrowserFromLive() {
+    	driver.findElement(By.xpath("//*[@id=\"platform-list-react\"]/div/div[2]/div/div[2]/div[3]/div[1]/div[1]/div/div")).click();
+
+    }
+    
+    @Test(priority=4)
+    public void invalidBSLogin() {
+    	driver.close();
+    	driver.get("https://www.browserstack.com/users/sign_in");
     	
-    	// navigate to bstackdemo
-        driver.get("https://www.bstackdemo.com");
+        driver.findElement(By.xpath("//*[@id=\"accept-cookie-notification\"]")).click();
+//        driver.findElement(By.xpath("//*[@id=\"primary-menu\"]/li[5]/a")).click();
+        driver.findElement(By.id("user_email_login")).sendKeys(username);
+        driver.findElement(By.id("user_password")).sendKeys("1234");
+        driver.findElement(By.id("user_submit")).click();
 
-        // Check the title
-        Assert.assertTrue(driver.getTitle().matches("StackDemo")); // PASS
-        Assert.assertTrue(driver.getTitle().matches("StackDemos")); // FAIL
-
-        // Save the text of the product for later verify
-        String productOnScreenText = driver.findElement(By.xpath("//*[@id=\"1\"]/p")).getText();
-        // Click on add to cart button
-        driver.findElement(By.xpath("//*[@id=\"1\"]/div[4]")).click();
-
-        // See if the cart is opened or not
-        Assert.assertTrue(driver.findElement(By.cssSelector(".float\\-cart__content")).isDisplayed());
-
-        // Check the product inside the cart is same as of the main page
-        String productOnCartText = driver.findElement(By.xpath("//*[@id=\"__next\"]/div/div/div[2]/div[2]/div[2]/div/div[3]/p[1]")).getText();
-        Assert.assertEquals(productOnScreenText, productOnCartText);
     }
-
-    @Test
-    public void addProductToCart() throws Exception {
-        // navigate to bstackdemo
-        driver.get("https://www.bstackdemo.com");
-
-        // Check the title
-        Assert.assertTrue(driver.getTitle().matches("StackDemo"));
-
-        // Save the text of the product for later verify
-        String productOnScreenText = driver.findElement(By.xpath("//*[@id=\"1\"]/p")).getText();
-        // Click on add to cart button
-        driver.findElement(By.xpath("//*[@id=\"1\"]/div[4]")).click(); // PASS
-        driver.findElement(By.xpath("//*[@id=\"1\"]/div[]")).click(); // FAIL
-
-        // See if the cart is opened or not
-        Assert.assertTrue(driver.findElement(By.cssSelector(".float\\-cart__content")).isDisplayed());
-
-        // Check the product inside the cart is same as of the main page
-        String productOnCartText = driver.findElement(By.xpath("//*[@id=\"__next\"]/div/div/div[2]/div[2]/div[2]/div/div[3]/p[1]")).getText();
-        Assert.assertEquals(productOnScreenText, productOnCartText);
+    
+    @Test(priority=5)
+    public void invalidOpenLiveDashboard() {
+        driver.findElement(By.xpath(" /html/body/div[1]/header/div/div/nav/ul[1]/li[1]/button")).click();
+        driver.findElement(By.xpath("/html/body/div[1]/header/div/div/nav/ul[1]/li[1]/div[2]/div/div[1]/ul[1]/li[2]/a/div[1]")).click();
+        String expectedTitle = "Rashboard";
+        String actualTitle = driver.getTitle();
+        System.out.println("Title: " + actualTitle);
+        assert actualTitle.equals(expectedTitle);
     }
-
-    @Test(enabled=false)
-    public void removeProductFromCart() throws Exception {
-        // navigate to bstackdemo
-        driver.get("https://www.bstackdemo.com");
-
-        // Check the title
-        Assert.assertTrue(driver.getTitle().matches("StackDemo"));
-
-        // Save the text of the product for later verify
-        String productOnScreenText = driver.findElement(By.xpath("//*[@id=\"1\"]/p")).getText();
-        // Click on add to cart button
-        driver.findElement(By.xpath("//*[@id=\"1\"]/div[4]")).click();
-
-        // See if the cart is opened or not
-        Assert.assertTrue(driver.findElement(By.cssSelector(".float\\-cart__content")).isDisplayed());
-
-        // Check the product inside the cart is same as of the main page
-        String productOnCartText = driver.findElement(By.xpath("//*[@id=\"__next\"]/div/div/div[2]/div[2]/div[2]/div/div[3]/p[1]")).getText();
-        Assert.assertEquals(productOnScreenText, productOnCartText);
-    }
-
-    @Test
-    public void addDuplicateProductToCart() throws Exception {
-        // navigate to bstackdemo
-        driver.get("https://www.bstackdemo.com");
-
-        // Check the title
-        Assert.assertTrue(driver.getTitle().matches("StackDemo"));
-
-        // Save the text of the product for later verify
-        String productOnScreenText = driver.findElement(By.xpath("//*[@id=\"1\"]/p")).getText();
-        // Click on add to cart button
-        driver.findElement(By.xpath("//*[@id=\"1\"]/div[4]")).click();
-
-        // See if the cart is opened or not
-        Assert.assertTrue(driver.findElement(By.cssSelector(".float\\-cart__content")).isDisplayed());
-
-        // Check the product inside the cart is same as of the main page
-        String productOnCartText = driver.findElement(By.xpath("//*[@id=\"__next\"]/div/div/div[2]/div[2]/div[2]/div/div[3]/p[1]")).getText();
-        Assert.assertEquals(productOnScreenText, productOnCartText);
-    }
-
-    @Test
-    public void placeOrder() throws Exception {
-        // navigate to bstackdemo
-        driver.get("https://www.bstackdemo.com");
-
-        // Check the title
-        Assert.assertTrue(driver.getTitle().matches("StackDemo"));
-
-        // Save the text of the product for later verify
-        String productOnScreenText = driver.findElement(By.xpath("//*[@id=\"1\"]/p")).getText();
-        // Click on add to cart button
-        driver.findElement(By.xpath("//*[@id=\"1\"]/div[4]")).click();
-
-        // See if the cart is opened or not
-        Assert.assertTrue(driver.findElement(By.cssSelector(".float\\-cart__content")).isDisplayed());
-
-        // Check the product inside the cart is same as of the main page
-        String productOnCartText = driver.findElement(By.xpath("//*[@id=\"__next\"]/div/div/div[2]/div[2]/div[2]/div/div[3]/p[1]")).getText();
-        Assert.assertEquals(productOnScreenText, productOnCartText);
-    }
-
-    @Test
-    public void makePayment() throws Exception {
-        // navigate to bstackdemo
-        driver.get("https://www.bstackdemo.com");
-
-        // Check the title
-        Assert.assertTrue(driver.getTitle().matches("StackDemo"));
-
-        // Save the text of the product for later verify
-        String productOnScreenText = driver.findElement(By.xpath("//*[@id=\"1\"]/p")).getText();
-        // Click on add to cart button
-        driver.findElement(By.xpath("//*[@id=\"1\"]/div[4]")).click();
-
-        // See if the cart is opened or not
-        Assert.assertTrue(driver.findElement(By.cssSelector(".float\\-cart__content")).isDisplayed());
-
-        // Check the product inside the cart is same as of the main page
-        String productOnCartText = driver.findElement(By.xpath("//*[@id=\"__next\"]/div/div/div[2]/div[2]/div[2]/div/div[3]/p[1]")).getText();
-        Assert.assertEquals(productOnScreenText, productOnCartText);
-    }
-
-    @Test
-    public void logoutFromBstackDemo() throws Exception {
-        // navigate to bstackdemo
-        driver.get("https://www.bstackdemo.com");
-
-        // Check the title
-        Assert.assertTrue(driver.getTitle().matches("StackDemo"));
-
-        // Save the text of the product for later verify
-        String productOnScreenText = driver.findElement(By.xpath("//*[@id=\"1\"]/p")).getText();
-        // Click on add to cart button
-        driver.findElement(By.xpath("//*[@id=\"1\"]/div[4]")).click();
-
-        // See if the cart is opened or not
-        Assert.assertTrue(driver.findElement(By.cssSelector(".float\\-cart__content")).isDisplayed());
-
-        // Check the product inside the cart is same as of the main page
-        String productOnCartText = driver.findElement(By.xpath("//*[@id=\"__next\"]/div/div/div[2]/div[2]/div[2]/div/div[3]/p[1]")).getText();
-        Assert.assertEquals(productOnScreenText, productOnCartText);
+    
+    
+    @Test(priority=6)
+    public void invalidOpenBrowserFromLive() {
+    	String actualTitle = driver.findElement(By.xpath("//*[@id=\"platform-list-react\"]/div/div[2]/div/div[2]/div[3]/div[1]/div[1]/div/div")).getText();
+    	driver.findElement(By.xpath("//*[@id=\"platform-list-react\"]/div/div[2]/div/div[2]/div[3]/div[1]/div[1]/div/div")).click();
+ 
+        String expectedTitle = "113";
+        System.out.println("Title: " + actualTitle);
+        assert actualTitle.equals(expectedTitle);
     }
 }
