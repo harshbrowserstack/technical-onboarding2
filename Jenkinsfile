@@ -23,7 +23,7 @@ pipeline {
                         M2_HOME="/var/lib/jenkins/workspace/apache-maven-3.6.3/bin" # path to your maven
                         export PATH="$M2_HOME:$PATH" # set maven path if it does not exists
                         mvn clean # clean your maven project
-                        mvn test # run your tests
+                        mvn test -Dusername=$username -Dpassword=$password
                     '''
                 }
             }
