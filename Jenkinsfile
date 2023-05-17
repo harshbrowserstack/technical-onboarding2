@@ -4,11 +4,11 @@ def params = []
 pipeline {
     agent any
         parameters {
-            password(name: 'TEST_MANAGEMENT_API_TOKEN', defaultValue: '6fdc64c7-7f37-4163-ab42-786ecf1e6f90', description: 'API Token of your Test Management Account - You can find here: https://test-management.browserstack.com/settings')
+            password(name: 'TEST_MANAGEMENT_API_TOKEN', defaultValue: '****', description: 'API Token of your Test Management Account - You can find here: https://test-management.browserstack.com/settings')
             string(name: 'TEST_MANAGEMENT_PROJECT_NAME', defaultValue: 'Technical Onboarding - Harsh', description: 'Project Name where you want to upload test results, NOTE: If any new project name is defined, Test Management will create a project for you')
             string(name: 'TEST_RUN_NAME', defaultValue: 'Test Run - TestNG cURL - $BUILD_NUMBER', description: 'Name of your Test Run')
-            string(name: 'USER_EMAIL', defaultValue: 'harsh.ag@browserstack.com', description: 'User Email')
-            string(name: 'username', defaultValue: 'agarwal.harshnu@gmail.com', description: 'test email')
+            string(name: 'USER_EMAIL', defaultValue: '***', description: 'User Email')
+            string(name: 'username', defaultValue: '***', description: 'test email')
             password(name: 'password', defaultValue: '***', description: 'test password')
             
         }
