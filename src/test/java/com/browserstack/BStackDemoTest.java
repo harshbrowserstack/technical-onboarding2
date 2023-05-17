@@ -5,8 +5,6 @@ import org.testng.annotations.Test;
 
 public class BStackDemoTest extends SeleniumTest {
 
-    static String username = "agarwal.harshnu@gmail.com";
-	static String password = "Harsh@1202";
 	
     @Test(priority=1)
     public void validBSLogin() {
