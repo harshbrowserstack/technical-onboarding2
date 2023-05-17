@@ -8,6 +8,9 @@ pipeline {
             string(name: 'TEST_MANAGEMENT_PROJECT_NAME', defaultValue: 'Technical Onboarding - Harsh', description: 'Project Name where you want to upload test results, NOTE: If any new project name is defined, Test Management will create a project for you')
             string(name: 'TEST_RUN_NAME', defaultValue: 'Test Run - TestNG cURL - $BUILD_NUMBER', description: 'Name of your Test Run')
             string(name: 'USER_EMAIL', defaultValue: 'harsh.ag@browserstack.com', description: 'User Email')
+            string(name: 'username', defaultValue: 'agarwal.harshnu@gmail.com', description: 'test email')
+            password(name: 'password', defaultValue: '***', description: 'test password')
+            
         }
     stages {
         stage('Run Maven Tests') {
