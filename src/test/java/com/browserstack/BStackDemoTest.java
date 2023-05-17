@@ -12,8 +12,8 @@ public class BStackDemoTest extends SeleniumTest {
     	
 //        driver.findElement(By.xpath("//*[@id=\"accept-cookie-notification\"]")).click();
 //        driver.findElement(By.xpath("//*[@id=\"primary-menu\"]/li[5]/a")).click();
-        driver.findElement(By.id("user_email_login")).sendKeys(username);
-        driver.findElement(By.id("user_password")).sendKeys(password);
+        driver.findElement(By.id("user_email_login")).sendKeys(System.getProperty("username"));
+        driver.findElement(By.id("user_password")).sendKeys(System.getProperty("password"));
         driver.findElement(By.id("user_submit")).click();
 
     }
