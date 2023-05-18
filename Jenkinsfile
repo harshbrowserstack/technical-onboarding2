@@ -15,8 +15,8 @@ pipeline {
     stages {
         stage('Run Maven Tests') {
             steps {
-                 browserstack(credentialsId: 'dw471drf-db68-4r23b-969d-24r3r32f') {
-                    echo "hello"
+                 browserstack(credentialsId: 'bb8773bf-c56d-4efa-8122-edebf7b1d3df') {
+                    echo 
                  }
                 catchError {
                     sh '''
