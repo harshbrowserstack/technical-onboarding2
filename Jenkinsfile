@@ -17,8 +17,6 @@ pipeline {
             steps {
                  browserstack(credentialsId: 'bb8773bf-c56d-4efa-8122-edebf7b1d3df') {
                     echo "hello"
-                 }
-                catchError {
                     sh '''
                         rm -rf technical-onboarding2 # name of your github repository
                         git clone https://github.com/harshbrowserstack/technical-onboarding2 # clone your github repository
@@ -28,7 +26,18 @@ pipeline {
                         mvn clean # clean your maven project
                         mvn test -Dusername=$username -Dpassword=$password
                     '''
-                }
+                 }
+                #catchError {
+                   # sh '''
+                    #    rm -rf technical-onboarding2 # name of your github repository
+                      #  git clone https://github.com/harshbrowserstack/technical-onboarding2 # clone your github repository
+                      #  cd technical-onboarding2 # cd to your repo
+                       # M2_HOME="/var/lib/jenkins/workspace/apache-maven-3.6.3/bin" # path to your maven
+                       # export PATH="$M2_HOME:$PATH" # set maven path if it does not exists
+                       # mvn clean # clean your maven project
+                       # mvn test -Dusername=$username -Dpassword=$password
+                  #  '''
+                #}
             }
         }
         stage('Upload Reports in Test Management') {
