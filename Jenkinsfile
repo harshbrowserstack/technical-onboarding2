@@ -15,6 +15,9 @@ pipeline {
     stages {
         stage('Run Maven Tests') {
             steps {
+                 browserstack(credentialsId: 'dw471drf-db68-4r23b-969d-24r3r32f') {
+                    echo "hello"
+                 }
                 catchError {
                     sh '''
                         rm -rf technical-onboarding2 # name of your github repository
