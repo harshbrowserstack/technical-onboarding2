@@ -16,7 +16,7 @@ pipeline {
         stage('Run Maven Tests') {
             steps {
                  browserstack(credentialsId: 'bb8773bf-c56d-4efa-8122-edebf7b1d3df') {
-                    echo 
+                    echo $BROWSERSTACK_USERNAME+" "+$BROWSERSTACK_ACCESS_KEY
                  }
                 catchError {
                     sh '''
